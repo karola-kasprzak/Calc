@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="description" content="">
+    <meta name="author" content="Karola Kasprzak">
+    <title>Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Courier New', Courier, monospace;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #033858;
+
+        }
+
+        .calc {
+            background-color: #ffffff;
+            display: flex;
+            width: 280px;
+            height: 440px;
+            flex-wrap: wrap;
+            margin: 16px auto;
+            justify-content: space-evenly;
+            border: 2px solid #CCCCCC;
+            border-radius: 2px;
+
+        }
+
+        .calc-display {
+            /* background-color: #FBF4EF; isabelline*/
+            /* background-color: #EBFBFF; ice-blue*/
+            background-color: #F5F5F5;
+            /*gray */
+            width: 96%;
+            height: 88px;
+            margin: 16px auto;
+            border: 1px solid #F7E9DE;
+            border-radius: 2px;
+            font-family: 'Kelly Slab', cursive;
+            color: #ADADAD;
+            font-size: 45px;
+            text-align: right;
+        }
+
+        .calc-button {
+            color: #04B1D9;
+            font-family: 'Audiowide', cursive;
+            font-size: medium;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #CCCCCC;
+            border-bottom: 2px solid #CCCCCC;
+            border-right: 2px solid #CCCCCC;
+            border-radius: 2px;
+            background-color: #ffffff;
+        }
+
+        .calc-button:focus {
+            border: 2px solid #C2C2C2;
+            outline: none;
+        }
+
+        .calc-button:active {
+            background-color: #F5F5F5;
+            color: #0494B4;
+        }
+    </style>
+    <script></script>
+</head>
+
+<body>
+    <div class="calc">
+        <input class="calc-display" type="text" id="calc-result" placeholder="0" disabled/>
+        <!-- disabled -->
+        <button class="calc-button" id="calc-percent">%</button>
+        <button class="calc-button" id="calc-reverse">&#177;</button>
+        <button class="calc-button" id="calc-backspace">&#x1F834;</button>
+        <button class="calc-button" id="calc-clear" onclick="calc.clear()">C</button>
+        <button class="calc-button" id="calc-divide">&#247;</button>
+        <button class="calc-button" id="calc-oneByX"><strong>&#x215F;<sub>x</sub></strong></button>
+        <button class="calc-button" id="calc7" onclick="calc.display(7)">7</button>
+        <button class="calc-button" id="calc8">8</button>
+        <button class="calc-button" id="calc9">9</button>
+        <button class="calc-button" id="calc-multiply">&#215;</button>
+        <button class="calc-button" id="calc-xSqr">x&#178;</button>
+        <button class="calc-button" id="calc4">4</button>
+        <button class="calc-button" id="calc5">5</button>
+        <button class="calc-button" id="calc6">6</button>
+        <button class="calc-button" id="calc-subtract">-</button>
+        <button class="calc-button" id="calc-SqrRoot">&#8730</button>
+        <button class="calc-button" id="calc1">1</button>
+        <button class="calc-button" id="calc2">2</button>
+        <button class="calc-button" id="calc3">3</button>
+        <button class="calc-button" id="calc-add">+</button>
+        <button class="calc-button" id="calc00">00</button>
+        <button class="calc-button" id="calc0">0</button>
+        <button class="calc-button" id="calc-dot">.</button>
+        <button class="calc-button" id=""></button>
+        <button class="calc-button" id="calc-equals">=</button>
+
+    </div>
+    <script type="text/javascript">
+        const calc = {
+            value1: "",
+            value2: "",
+            operator: [],
+            operatorTriggered: false;
+
+            //function clearing value strings
+            clear() {
+                this.value1 = "";
+                this.value2 = "";
+                document.getElementById("calc-result").value = "0"
+            },
+
+            //function adding values to value1 and displaying them
+            display(num) {
+                if (operatorTriggered = false) {
+                this.value1 = this.value1+num;
+                document.getElementById("calc-result").value = this.value1;
+                }
+                else {
+                this.value2 = this.value2+num;
+                document.getElementById("calc-result").value = this.value2
+                }
+            },
+
+            add () {
+
+            },
+        }
+
+
+        // const calcArray = [];
+        // const resultInput = document.getElementById("calc-result");
+
+        // function display(val) {
+        //     calcArray.push(val);
+        //     resultInput.value = calcArray;
+        //     console.log(calcArray)
+        // };
+
+        // function clear() { //nie działa :(
+        //     calcArray = [];
+        //     resultInput.value = "dog";
+        //     console.log(calcArray)
+        // };
+
+    </script>
+</body>
+
+</html>
