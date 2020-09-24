@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="description" content="">
     <meta name="author" content="Karola Kasprzak">
-    <title>Title</title>
+    <title>Cool Calc</title>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <style>
@@ -18,7 +18,7 @@
         }
 
         body {
-            background-color: #033858;
+            background-color: whitesmoke; /* navy #033858 */
 
         }
 
@@ -85,42 +85,48 @@
     <div class="calc">
         <input class="calc-display" type="text" id="calc-result" placeholder="0" disabled />
         <!-- disabled -->
-        <button class="calc-button disabled" id="calc-percent" disabled>%</button> <!-- wymaga oddzielnej funkcji: procent-->
-        <button class="calc-button disabled" id="calc-backspace" disabled>&#x1F834;</button> <!-- wymaga oddzielnej funkcji: cofanie -->
+        <button class="calc-button disabled" id="calc-percent" disabled>%</button>
+        <!-- wymaga oddzielnej funkcji: procent-->
+        <button class="calc-button disabled" id="calc-backspace" disabled>&#x1F834;</button>
+        <!-- wymaga oddzielnej funkcji: cofanie -->
         <button class="calc-button" id="calc-clear" onclick="calc.clear()">C</button>
-        <button class="calc-button" id="calc-divide" value="/" onclick="calc.trigger('/')">&#247;</button> <!-- działanie na dwóch wartościach -->
-        <button class="calc-button disabled" id="calc-oneByX" value="1/x" disabled><strong>&#x215F;<sub>x</sub></strong></button>
+        <button class="calc-button" id="calc-divide" value="/" onclick="calc.trigger('/')">&#247;</button>
+        <button class="calc-button" id="calc-oneByX" value="1/x" onclick="calc.oneByX()"><strong>&#x215F;<sub>x</sub></strong></button>
         <!-- wymaga oddzielnej funkcji: działanie na jednej wartości -->
         <button class="calc-button" id="calc7" onclick="calc.display(7)">7</button>
         <button class="calc-button" id="calc8" onclick="calc.display(8)">8</button>
         <button class="calc-button" id="calc9" onclick="calc.display(9)">9</button>
-        <button class="calc-button" id="calc-multiply" value="*" onclick="calc.trigger('*')">&#215;</button> <!-- działanie na dwóch wartościach -->
-        <button class="calc-button disabled" id="calc-xSqr" value="x^2" disabled>x&#178;</button>
+        <button class="calc-button" id="calc-multiply" value="*" onclick="calc.trigger('*')">&#215;</button>
+        <!-- działanie na dwóch wartościach -->
+        <button class="calc-button" id="calc-xSqr" value="x^2" onclick="calc.sqrX()">x&#178;</button>
         <!-- wymaga oddzielnej funkcji: działanie na jednej wartości -->
         <button class="calc-button" id="calc4" onclick="calc.display(4)">4</button>
         <button class="calc-button" id="calc5" onclick="calc.display(5)">5</button>
         <button class="calc-button" id="calc6" onclick="calc.display(6)">6</button>
-        <button class="calc-button" id="calc-subtract" value="-" onclick="calc.trigger('-')">-</button> <!-- działanie na dwóch wartościach -->
-        <button class="calc-button disabled" id="calc-SqrRoot" value="sqr(x)" disabled>&#8730</button>
+        <button class="calc-button" id="calc-subtract" value="-" onclick="calc.trigger('-')">-</button>
+        <!-- działanie na dwóch wartościach -->
+        <button class="calc-button" id="calc-SqrRoot" value="sqrt(x)" onclick="calc.sqrtX()">&#8730</button>
         <!-- wymaga oddzielnej funkcji: działanie na jednej wartości -->
         <button class="calc-button" id="calc1" onclick="calc.display(1)">1</button>
         <button class="calc-button" id="calc2" onclick="calc.display(2)">2</button>
         <button class="calc-button" id="calc3" onclick="calc.display(3)">3</button>
-        <button class="calc-button" id="calc-add" value="+" onclick="calc.trigger('+')">+</button> <!-- działanie na dwóch wartościach -->
+        <button class="calc-button" id="calc-add" value="+" onclick="calc.trigger('+')">+</button>
+        <!-- działanie na dwóch wartościach -->
         <button class="calc-button" id=""></button>
         <button class="calc-button disabled" id="calc00" onclick="calc.display(00)" disabled>00</button>
         <!-- problem: calc.display nie działa poprawnie, 00 nie jest numerem-->
         <button class="calc-button" id="calc0" onclick="calc.display(0)">0</button>
-        <button class="calc-button disabled" id="calc-dot" disabled>.</button> <!-- wymaga oddzielnej funkcji: ułamek -->
+        <button class="calc-button" id="calc-dot" onclick="calc.dot()">.</button>
+        <!-- wymaga oddzielnej funkcji: ułamek -->
         <button class="calc-button" id=""></button>
-        <button class="calc-button" id="calc-equals" onclick="calc.calculateDouble()">=</button> <!-- wymaga oddzielnej funkcji: wynik -->
+        <button class="calc-button" id="calc-equals" onclick="calc.calculateDouble()">=</button>
+        <!-- wymaga oddzielnej funkcji: wynik -->
 
     </div>
     <script type="text/javascript">
-
-    // add  shorthand for 4*= = = 
-    // add truncating display results
-    // 
+        //bug: ekran nie czyści się gdy naciskam wartość po wykonaniu operacji na value1
+        //calc-dot
+        //remove unused buttons
 
         const calc = {
             value1: "",
@@ -128,6 +134,7 @@
             // operator: [],
             operatorTriggered: false,
             operatorValue: "",
+            displayResult11: "", //result display limited to 11 characters 
 
             //function clearing value strings
             clear() {
@@ -160,33 +167,34 @@
             //function for double value operations
             calculateDouble() {
                 let result = 0;
-                
+
                 //condition added for doing operations with shorthand, where second value equals the first such as 4*=   
                 if (this.value2 == "") {
                     this.value2 = this.value1
                 }
 
-                switch(this.operatorValue) {
+                switch (this.operatorValue) {
                     case "+":
-                    result = parseFloat(this.value1)+parseFloat(this.value2);
-                    break;
+                        result = parseFloat(this.value1) + parseFloat(this.value2);
+                        break;
                     case "-":
-                    result = parseFloat(this.value1)-parseFloat(this.value2);
-                    break;
+                        result = parseFloat(this.value1) - parseFloat(this.value2);
+                        break;
                     case "/":
-                    result = parseFloat(this.value1)/parseFloat(this.value2);
-                    break;
+                        result = parseFloat(this.value1) / parseFloat(this.value2);
+                        break;
                     case "*":
-                    result = parseFloat(this.value1)*parseFloat(this.value2);
-                    break;
+                        result = parseFloat(this.value1) * parseFloat(this.value2);
+                        break;
 
                     default:
-                    document.getElementById("calc-result").value = "ERR";
+                        document.getElementById("calc-result").value = "ERR";
                 }
-                document.getElementById("calc-result").value = result;
+                this.displayResult11 = result.toString();
+                document.getElementById("calc-result").value = this.displayResult11.substring(0,11); 
                 this.value1 = result;
                 this.value2 = "";
-                this.operatorValue = "";
+                // this.operatorValue = ""; --needs to be commented to allow chain calculations on the same value--
                 this.operatorTriggered = false;
             },
 
@@ -196,11 +204,44 @@
                 this.operatorValue = val;
             },
 
+            //function for finding square root of x
+            sqrtX() {
+                this.value1 = Math.sqrt(this.value1);
+                this.displayResult11 = this.value1.toString();
+                document.getElementById("calc-result").value = this.displayResult11.substring(0,11);
+                
+            },
 
-        }
+            //function for squaring value1
+            sqrX() {
+                this.value1 = Math.pow(this.value1, 2);
+                this.displayResult11 = this.value1.toString();
+                document.getElementById("calc-result").value = this.displayResult11.substring(0,11);
+                
+            },
 
+            //function converting number to 1/x
+            oneByX() {
+                if (this.operatorTriggered === false) {
+                    this.value1 = 1 / parseFloat(this.value1);
+                    this.displayResult11 = this.value1.toString();
+                    document.getElementById("calc-result").value = this.displayResult11.substring(0,11);
+                } else {
+                    this.value2 = 1 / parseFloat(this.value2);
+                    this.displayResult11 = this.value2.toString();
+                    document.getElementById("calc-result").value = this.displayResult11.substring(0,11);
+                    
+                }
+            },
 
+            //function calc-dot
+            dot() {
+                if ()
+            }
+            
 
+         
+        };
     </script>
 </body>
 
