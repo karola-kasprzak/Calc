@@ -26,7 +26,7 @@
             background-color: #ffffff;
             display: flex;
             width: 280px;
-            height: 440px;
+            height: 380px;
             flex-wrap: wrap;
             margin: 16px auto;
             justify-content: space-evenly;
@@ -83,50 +83,47 @@
 
 <body>
     <div class="calc">
+        <!-- top display: -->
         <input class="calc-display" type="text" id="calc-result" placeholder="0" disabled />
-        <!-- disabled -->
-        <button class="calc-button disabled" id="calc-percent" disabled>%</button>
-        <!-- wymaga oddzielnej funkcji: procent-->
-        <button class="calc-button disabled" id="calc-backspace" disabled>&#x1F834;</button>
-        <!-- wymaga oddzielnej funkcji: cofanie -->
-        <button class="calc-button" id="calc-clear" onclick="calc.clear()">C</button>
-        <button class="calc-button" id="calc-divide" value="/" onclick="calc.trigger('/')">&#247;</button>
-        <button class="calc-button" id="calc-oneByX" value="1/x" onclick="calc.oneByX()"><strong>&#x215F;<sub>x</sub></strong></button>
-        <!-- wymaga oddzielnej funkcji: działanie na jednej wartości -->
+        
+        <!-- buttons row 1 -->
         <button class="calc-button" id="calc7" onclick="calc.display(7)">7</button>
         <button class="calc-button" id="calc8" onclick="calc.display(8)">8</button>
         <button class="calc-button" id="calc9" onclick="calc.display(9)">9</button>
-        <button class="calc-button" id="calc-multiply" value="*" onclick="calc.trigger('*')">&#215;</button>
-        <!-- działanie na dwóch wartościach -->
-        <button class="calc-button" id="calc-xSqr" value="x^2" onclick="calc.sqrX()">x&#178;</button>
-        <!-- wymaga oddzielnej funkcji: działanie na jednej wartości -->
+        <button class="calc-button" id="calc-divide" value="/" onclick="calc.trigger('/')">&#247;</button>
+        <button class="calc-button" id="calc-clear" onclick="calc.clear()">C</button>
+        <!-- buttons row 2 -->
         <button class="calc-button" id="calc4" onclick="calc.display(4)">4</button>
         <button class="calc-button" id="calc5" onclick="calc.display(5)">5</button>
         <button class="calc-button" id="calc6" onclick="calc.display(6)">6</button>
-        <button class="calc-button" id="calc-subtract" value="-" onclick="calc.trigger('-')">-</button>
-        <!-- działanie na dwóch wartościach -->
-        <button class="calc-button" id="calc-SqrRoot" value="sqrt(x)" onclick="calc.sqrtX()">&#8730</button>
-        <!-- wymaga oddzielnej funkcji: działanie na jednej wartości -->
+        <button class="calc-button" id="calc-multiply" value="*" onclick="calc.trigger('*')">&#215;</button>
+        <button class="calc-button" id="calc-oneByX" value="1/x" onclick="calc.oneByX()"><strong>&#x215F;<sub>x</sub></strong></button>
+       <!-- buttons row 4 -->
         <button class="calc-button" id="calc1" onclick="calc.display(1)">1</button>
         <button class="calc-button" id="calc2" onclick="calc.display(2)">2</button>
         <button class="calc-button" id="calc3" onclick="calc.display(3)">3</button>
-        <button class="calc-button" id="calc-add" value="+" onclick="calc.trigger('+')">+</button>
-        <!-- działanie na dwóch wartościach -->
-        <button class="calc-button" id=""></button>
-        <button class="calc-button disabled" id="calc00" onclick="calc.display(00)" disabled>00</button>
-        <!-- problem: calc.display nie działa poprawnie, 00 nie jest numerem-->
+        <button class="calc-button" id="calc-subtract" value="-" onclick="calc.trigger('-')">-</button>
+        <button class="calc-button" id="calc-SqrRoot" value="sqrt(x)" onclick="calc.sqrtX()">&#8730</button>
+        <!-- buttons row 5 -->
         <button class="calc-button" id="calc0" onclick="calc.display(0)">0</button>
         <button class="calc-button" id="calc-dot" onclick="calc.dot()">.</button>
-        <!-- wymaga oddzielnej funkcji: ułamek -->
-        <button class="calc-button" id=""></button>
         <button class="calc-button" id="calc-equals" onclick="calc.calculateDouble()">=</button>
-        <!-- wymaga oddzielnej funkcji: wynik -->
+        <button class="calc-button" id="calc-add" value="+" onclick="calc.trigger('+')">+</button>
+        <button class="calc-button" id="calc-xSqr" value="x^2" onclick="calc.sqrX()">x&#178;</button>
+                
+   
+
+        <!-- buttons below not used in final version: 
+        <button class="calc-button disabled" id="calc-percent" disabled>%</button>
+        <button class="calc-button disabled" id="calc-backspace" disabled>&#x1F834;</button>
+        <button class="calc-button disabled" id="calc00" onclick="calc.display(00)" disabled>00</button> -->
+
 
     </div>
     <script type="text/javascript">
-        //bug: ekran nie czyści się gdy naciskam wartość po wykonaniu operacji na value1
+        //bug: nieprawidłowe operacje gdy jest chain
         //calc-dot
-        //remove unused buttons
+        
 
         const calc = {
             value1: "",
@@ -134,7 +131,8 @@
             // operator: [],
             operatorTriggered: false,
             operatorValue: "",
-            displayResult11: "", //result display limited to 11 characters 
+            displayResult11: "", //result display limited to 11 characters
+             
 
             //function clearing value strings
             clear() {
@@ -145,9 +143,13 @@
                 this.operatorValue = "";
             },
 
-            //function adding values to value1 and displaying them
+            //function adding values to value1 and displaying them --- only here value1 and value2 are strings
             display(num) {
-                if (this.operatorTriggered === false) {
+                if (typeof this.value1 === "number" ) {
+                    this.value1 = `${num}`;
+                    document.getElementById("calc-result").value = this.value1;
+                }
+                else if (this.operatorTriggered === false) {
                     this.value1 = this.value1 + num;
                     document.getElementById("calc-result").value = this.value1;
                     // console.log("display -> document.getElementById("calc-result").value", document.getElementById("calc-result").value);
@@ -236,7 +238,9 @@
 
             //function calc-dot
             dot() {
-                if ()
+                if (a > b) {
+
+                }
             }
             
 

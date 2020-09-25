@@ -1,0 +1,4 @@
+24.09:
+
+bug: nieprawidłowe operacje gdy jest chain
+dodać calc-dot
