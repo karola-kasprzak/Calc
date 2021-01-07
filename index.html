@@ -29,7 +29,7 @@
         <button class="calc-button" id="calc5" onclick="calc.display(5)">5</button>
         <button class="calc-button" id="calc6" onclick="calc.display(6)">6</button>
         <button class="calc-button" id="calc-multiply" value="*" onclick="calc.trigger('*')">&#215;</button>
-        <button class="calc-button" id="calc-oneByX" value="1/x" onclick="calc.oneByX()"><strong>&#x215F;<sub>x</sub></strong></button>
+        <button class="calc-button" id="calc-backSpace" value="backSpace" onclick="calc.backSpace()"><strong>&#8678;</strong></button>
        <!-- buttons row 4 -->
         <button class="calc-button" id="calc1" onclick="calc.display(1)">1</button>
         <button class="calc-button" id="calc2" onclick="calc.display(2)">2</button>
@@ -38,8 +38,8 @@
         <button class="calc-button" id="calc-SqrRoot" value="sqrt(x)" onclick="calc.sqrtX()">&#8730</button>
         <!-- buttons row 5 -->
         <button class="calc-button" id="calc0" onclick="calc.display(0)">0</button>
-        <button class="calc-button" id="calc-dot" onclick="calc.dot()">.</button>
-        <button class="calc-button" id="calc-equals" onclick="calc.calculateDouble()">=</button>
+        <button class="calc-button" id="calc-dot" onclick="calc.decPoint()">.</button>
+        <button class="calc-button" id="calc-equals" onclick="calc.operate()">=</button>
         <button class="calc-button" id="calc-add" value="+" onclick="calc.trigger('+')">+</button>
         <button class="calc-button" id="calc-xSqr" value="x^2" onclick="calc.sqrX()">x&#178;</button>
                 
