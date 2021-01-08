@@ -12,7 +12,10 @@ const calc = {
 
     //f. to update DOM
     pushToDisplay(val) {
-        document.getElementById("calc-result").value = val;
+        let displayVal = val;
+        document.getElementById("calc-result").value = this.throwError(
+            displayVal
+        );
     },
 
     //function clearing value strings
@@ -27,6 +30,7 @@ const calc = {
         console.log(calc);
     },
 
+    //TO BE FIXED
     //f. to trim displayed values up to maxLength
     trimToDisplay(val) {
         let trimmedVal = val;
@@ -39,14 +43,26 @@ const calc = {
             ? (trimmedVal = parseFloat(toString(val).slice(0, this.maxLength))) //value is trimmed to this.maxLength
             : null; //value is NOT trimmed
 
-        console.log(`trim check: ${val} < ${maxNumber}`, val < maxNumber);
+        // console.log(`trim check: ${val} < ${maxNumber}`, val < maxNumber);
 
-        return this.throwError(trimmedVal);
+        return trimmedVal;
+
+        //old trim function
+        //************************************************
+        //trim currentNum if exceeds maxLength
+        // currentNum.toString().length > this.maxLength
+        //     ? (currentNum = parseFloat(
+        //           this.value1.toString().slice(0, this.maxLength)
+        //       ))
+        //     : null;
+
+        // //display trimmed currentNum (value1 stays untrimmed!)
+        // this.pushToDisplay(currentNum);
     },
 
     //if input is not a number Error is displayed in DOM and all variables are cleared
     throwError(val) {
-        if (typeof val === "string") {
+        if (typeof val !== "number") {
             this.clear();
             val = "ERR";
         }
