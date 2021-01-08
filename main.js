@@ -1,22 +1,61 @@
 const calc = {
-    // inputString: "",
-    // PO CO TO???
-    // displayResult: null,
-    //pushed to display - input will check for strings, if not then result will be cleared, limited to 10 characters
-
+    // --VARIABLES --
     inputArr: [],
     value1: null, //float number
     value2: null, //float number
     operatorTriggered: false,
     operatorValue: null,
     decPointTriggered: false,
-    maxLength: 10,
+    maxLength: 10, //num ditits on display
 
+    // --UTILITIES--
+
+    //f. to update DOM
     pushToDisplay(val) {
         document.getElementById("calc-result").value = val;
     },
 
-    // f. updating and displaying values
+    //function clearing value strings
+    clear() {
+        this.value1 = null;
+        this.value2 = null;
+        this.operatorTriggered = false;
+        this.operatorValue = null;
+        this.decPointTriggered = false;
+        this.inputArr = [];
+        this.pushToDisplay(0);
+        console.log(calc);
+    },
+
+    //f. to trim displayed values up to maxLength
+    trimToDisplay(val) {
+        let trimmedVal = val;
+        let maxNumber = parseInt("9".repeat(this.maxLength));
+
+        //a series of checks
+        val > maxNumber
+            ? (trimmedVal = "ERR") //if value exceeds maxNumber error is pushed to display
+            : toString(val).length > this.maxLength //check for numbers after decimal point
+            ? (trimmedVal = parseFloat(toString(val).slice(0, this.maxLength))) //value is trimmed to this.maxLength
+            : null; //value is NOT trimmed
+
+        console.log(`trim check: ${val} < ${maxNumber}`, val < maxNumber);
+
+        return this.throwError(trimmedVal);
+    },
+
+    //if input is not a number Error is displayed in DOM and all variables are cleared
+    throwError(val) {
+        if (typeof val === "string") {
+            this.clear();
+            val = "ERR";
+        }
+        return val;
+    },
+
+    // --OPERATION FUNCTIONS--
+
+    // f. updating variables and displaying values
     display(num) {
         //adding input to array
         this.inputArr.push(num);
@@ -36,18 +75,6 @@ const calc = {
 
         // pushing current number to display
         this.pushToDisplay(currentNum);
-        console.log(calc);
-    },
-
-    //function clearing value strings
-    clear() {
-        this.value1 = null;
-        this.value2 = null;
-        this.operatorTriggered = false;
-        this.operatorValue = null;
-        this.decPointTriggered = false;
-        this.inputArr = [];
-        this.pushToDisplay(0);
         console.log(calc);
     },
 
@@ -79,6 +106,8 @@ const calc = {
 
     //f. calculating the result chosen mathematical operation
     operate() {
+        let result = null;
+
         switch (this.operatorValue) {
             case "+":
                 result = this.value1 + this.value2;
@@ -93,11 +122,18 @@ const calc = {
                 result = this.value1 * this.value2;
                 break;
             default:
-                document.getElementById("calc-result").value = "ERR";
+                this.pushToDisplay("ERR");
         }
+        //clear values and bools
         this.clear();
+
+        //set result as value1
         this.value1 = result;
-        this.pushToDisplay(this.value1);
+
+        //display trimmed result (value1 stays untrimmed!)
+        this.pushToDisplay(result);
+
+        //for debugging - uncomment if necessary
         console.log(calc);
     },
 
