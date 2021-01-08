@@ -48,7 +48,6 @@ const calc = {
         return trimmedVal;
 
         //old trim function
-        //************************************************
         //trim currentNum if exceeds maxLength
         // currentNum.toString().length > this.maxLength
         //     ? (currentNum = parseFloat(
@@ -153,34 +152,21 @@ const calc = {
         console.log(calc);
     },
 
-    //function for finding square root of x
-    sqrtX() {
+    //f. on single values: square root of x or x^2
+    triggerSingle(val) {
+        let currentNum = null;
+
         //math operation
-        let currentNum = Math.sqrt(this.value1);
-
-        //clear values and bools
-        this.clear();
-
-        //set currentNum as value1
-        this.value1 = currentNum;
-
-        //trim currentNum if exceeds maxLength
-        currentNum.toString().length > this.maxLength
-            ? (currentNum = parseFloat(
-                  this.value1.toString().slice(0, this.maxLength)
-              ))
-            : null;
-
-        //display trimmed currentNum (value1 stays untrimmed!)
-        this.pushToDisplay(currentNum);
-
-        console.log(calc);
-    },
-
-    //function for squaring value1
-    sqrX() {
-        //math operation
-        let currentNum = Math.pow(this.value1, 2);
+        switch (val) {
+            case "sqrtX":
+                currentNum = Math.sqrt(this.value1);
+                break;
+            case "sqrX":
+                currentNum = Math.pow(this.value1, 2);
+                break;
+            default:
+                currentNum = NaN;
+        }
 
         //clear values and bools
         this.clear();
