@@ -12,10 +12,7 @@ const calc = {
 
     //f. to update DOM
     pushToDisplay(val) {
-        let displayVal = val;
-        document.getElementById("calc-result").value = this.throwError(
-            displayVal
-        );
+        document.getElementById("calc-result").value = this.throwError(val);
     },
 
     //function clearing value strings
@@ -27,7 +24,6 @@ const calc = {
         this.decPointTriggered = false;
         this.inputArr = [];
         this.pushToDisplay(0);
-        console.log(calc);
     },
 
     //TO BE FIXED
@@ -59,6 +55,7 @@ const calc = {
         // this.pushToDisplay(currentNum);
     },
 
+    //TO BE FIXED
     //if input is not a number Error is displayed in DOM and all variables are cleared
     throwError(val) {
         if (typeof val !== "number") {
@@ -72,8 +69,21 @@ const calc = {
 
     // f. updating variables and displaying values
     display(num) {
-        //adding input to array
-        this.inputArr.push(num);
+        //checking if backspace key was pressed (value == -1)
+        if (num === -1) {
+            //if yes, last digit is popped out
+            this.inputArr.pop();
+            //ensuring that inputArr is not empty as a result of backspace
+            this.inputArr.length === 0 ? this.inputArr.push(0) : null;
+        } else {
+            //adding input to array (values between 0 and 9)
+            this.inputArr.push(num);
+        }
+
+        //ensuring inputArr has no more than one zero as first digit
+        this.inputArr[0] === 0 && this.inputArr[1] === 0
+            ? this.inputArr.shift()
+            : null;
 
         //trimming input to 10 digits by limit input array lenght
         if (this.inputArr.length > this.maxLength) {
@@ -90,7 +100,9 @@ const calc = {
 
         // pushing current number to display
         this.pushToDisplay(currentNum);
-        console.log(calc);
+
+        //for debugging - uncomment if necessary
+        // console.log(calc);
     },
 
     //f. adding a decimal point to value
@@ -116,7 +128,8 @@ const calc = {
         this.operatorValue = val;
         this.inputArr = [];
 
-        console.log(calc);
+        //for debugging - uncomment if necessary
+        // console.log(calc);
     },
 
     //f. calculating the result chosen mathematical operation
@@ -149,7 +162,7 @@ const calc = {
         this.pushToDisplay(result);
 
         //for debugging - uncomment if necessary
-        console.log(calc);
+        // console.log(calc);
     },
 
     //f. on single values: square root of x or x^2
@@ -184,13 +197,7 @@ const calc = {
         //display trimmed currentNum (value1 stays untrimmed!)
         this.pushToDisplay(currentNum);
 
-        console.log(calc);
-    },
-
-    // DO ZROBIENIA
-    //f. backspace
-    backSpace() {
-        // this.inputArr.pop();
+        //for debugging - uncomment if necessary
         // console.log(calc);
     },
 };
