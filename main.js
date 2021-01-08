@@ -6,7 +6,7 @@ const calc = {
     operatorTriggered: false,
     operatorValue: null,
     decPointTriggered: false,
-    maxLength: 10, //num ditits on display
+    maxLength: 10, //max number of ditits on display
 
     // --UTILITIES--
 
@@ -127,9 +127,6 @@ const calc = {
         this.operatorTriggered = true;
         this.operatorValue = val;
         this.inputArr = [];
-
-        //for debugging - uncomment if necessary
-        // console.log(calc);
     },
 
     //f. calculating the result chosen mathematical operation
