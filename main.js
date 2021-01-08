@@ -66,8 +66,9 @@ const calc = {
     },
 
     // --OPERATION FUNCTIONS--
+    // each is bound to key(s) on calc
 
-    // f. updating variables and displaying values
+    // Keys 0-9 and BACKSPACE
     display(num) {
         //checking if backspace key was pressed (value == -1)
         if (num === -1) {
@@ -105,7 +106,7 @@ const calc = {
         // console.log(calc);
     },
 
-    //f. adding a decimal point to value
+    //Key DECIMAL POINT
     decPoint() {
         if (!this.decPointTriggered) {
             //check if there is an integer before decimal point
@@ -116,9 +117,9 @@ const calc = {
         }
     },
 
-    //function for triggering operators for double value operations
+    //Keys ADD, SUBTRACT, MULTIPLY, DIVIDE
     trigger(val) {
-        //chaining operations if opperator is triggered the second time ex. 1 + 3 + 4
+        //allows chaining operations if opperator is triggered the second time ex. 1 + 3 + 4
         if (this.operatorTriggered) {
             this.operate();
         }
@@ -129,7 +130,7 @@ const calc = {
         this.inputArr = [];
     },
 
-    //f. calculating the result chosen mathematical operation
+    //Key EQUAL SIGN
     operate() {
         let result = null;
 
@@ -162,7 +163,7 @@ const calc = {
         // console.log(calc);
     },
 
-    //f. on single values: square root of x or x^2
+    //Keys SQUARE ROOT OF X and X SQUARED
     triggerSingle(val) {
         let currentNum = null;
 
