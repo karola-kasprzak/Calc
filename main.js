@@ -31,6 +31,7 @@ const calc = {
     trimToDisplay(val) {
         let trimmedVal = val;
         let maxNumber = parseInt("9".repeat(this.maxLength));
+        console.log(trimmedVal, maxNumber);
 
         //a series of checks
         val > maxNumber
@@ -58,9 +59,10 @@ const calc = {
     //TO BE FIXED
     //if input is not a number Error is displayed in DOM and all variables are cleared
     throwError(val) {
-        if (typeof val !== "number") {
+        if (val instanceof Number) {
             this.clear();
             val = "ERR";
+            console.log("error!");
         }
         return val;
     },
