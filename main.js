@@ -12,7 +12,7 @@ const calc = {
 
     //f. to update DOM
     pushToDisplay(val) {
-        document.getElementById("calc-result").value = this.throwError(val);
+        document.getElementById("calc-result").value = val;
     },
 
     //function clearing value strings
@@ -43,7 +43,6 @@ const calc = {
         //display trimmed currentNum (value1 stays untrimmed!)
         this.pushToDisplay(val);
     },
-
 
     // --OPERATION FUNCTIONS--
     // each is bound to key(s) on calc
@@ -143,7 +142,7 @@ const calc = {
         this.trimToDisplay(result);
 
         //for debugging - uncomment if necessary
-        console.log(calc);
+        // console.log(calc);
     },
 
     //Keys SQUARE ROOT OF X and X SQUARED
@@ -172,6 +171,6 @@ const calc = {
         this.trimToDisplay(currentNum);
 
         //for debugging - uncomment if necessary
-        console.log(calc);
+        // console.log(calc);
     },
 };
