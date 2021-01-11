@@ -1,7 +1,7 @@
-24.09:
+This project is done following the rules of The Odin Project.
 
-bug: nieprawidłowe operacje gdy jest chain
-dodać calc-dot
+
+*********************************************************************
 
 https://www.theodinproject.com/courses/foundations/lessons/calculator
 
