@@ -1,4 +1,4 @@
-    trimToDisplay(val) {
+    function trimToDisplay(val) {
         let trimmedVal = val;
         let maxNumber = parseInt("9".repeat(this.maxLength));
         console.log(trimmedVal, maxNumber);
@@ -24,4 +24,17 @@
 
         // //display trimmed currentNum (value1 stays untrimmed!)
         // this.pushToDisplay(currentNum);
+    },
+
+
+    
+    //TO BE FIXED
+    //if input is not a number Error is displayed in DOM and all variables are cleared
+    throwError(val) {
+        if (val instanceof Number) {
+            this.clear();
+            val = "ERR";
+            console.log("error!");
+        }
+        return val;
     },

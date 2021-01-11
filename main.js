@@ -26,46 +26,24 @@ const calc = {
         this.pushToDisplay(0);
     },
 
-    //TO BE FIXED
     //f. to trim displayed values up to maxLength
     trimToDisplay(val) {
-        let trimmedVal = val;
-        let maxNumber = parseInt("9".repeat(this.maxLength));
-        console.log(trimmedVal, maxNumber);
-
-        //a series of checks
-        val > maxNumber
-            ? (trimmedVal = "ERR") //if value exceeds maxNumber error is pushed to display
-            : toString(val).length > this.maxLength //check for numbers after decimal point
-            ? (trimmedVal = parseFloat(toString(val).slice(0, this.maxLength))) //value is trimmed to this.maxLength
-            : null; //value is NOT trimmed
-
-        // console.log(`trim check: ${val} < ${maxNumber}`, val < maxNumber);
-
-        return trimmedVal;
-
-        //old trim function
-        //trim currentNum if exceeds maxLength
-        // currentNum.toString().length > this.maxLength
-        //     ? (currentNum = parseFloat(
-        //           this.value1.toString().slice(0, this.maxLength)
-        //       ))
-        //     : null;
-
-        // //display trimmed currentNum (value1 stays untrimmed!)
-        // this.pushToDisplay(currentNum);
-    },
-
-    //TO BE FIXED
-    //if input is not a number Error is displayed in DOM and all variables are cleared
-    throwError(val) {
-        if (val instanceof Number) {
-            this.clear();
+        //throw errror if val exceeds maxNumber
+        const maxNumber = parseInt("9".repeat(this.maxLength));
+        if (val > maxNumber) {
             val = "ERR";
-            console.log("error!");
+            this.clear();
         }
-        return val;
+
+        // trim currentNum if exceeds maxLength
+        val.toString().length > this.maxLength
+            ? (val = parseFloat(val.toString().slice(0, this.maxLength)))
+            : null;
+
+        //display trimmed currentNum (value1 stays untrimmed!)
+        this.pushToDisplay(val);
     },
+
 
     // --OPERATION FUNCTIONS--
     // each is bound to key(s) on calc
@@ -144,13 +122,15 @@ const calc = {
                 result = this.value1 - this.value2;
                 break;
             case "/":
-                result = this.value1 / this.value2;
+                this.value2 !== 0
+                    ? (result = this.value1 / this.value2)
+                    : (result = "JUST NO.");
                 break;
             case "*":
                 result = this.value1 * this.value2;
                 break;
             default:
-                this.pushToDisplay("ERR");
+                this.pushToDisplay("WTF");
         }
         //clear values and bools
         this.clear();
@@ -159,10 +139,11 @@ const calc = {
         this.value1 = result;
 
         //display trimmed result (value1 stays untrimmed!)
-        this.pushToDisplay(result);
+        // this.pushToDisplay(result);
+        this.trimToDisplay(result);
 
         //for debugging - uncomment if necessary
-        // console.log(calc);
+        console.log(calc);
     },
 
     //Keys SQUARE ROOT OF X and X SQUARED
@@ -187,17 +168,10 @@ const calc = {
         //set currentNum as value1
         this.value1 = currentNum;
 
-        //trim currentNum if exceeds maxLength
-        currentNum.toString().length > this.maxLength
-            ? (currentNum = parseFloat(
-                  this.value1.toString().slice(0, this.maxLength)
-              ))
-            : null;
-
-        //display trimmed currentNum (value1 stays untrimmed!)
-        this.pushToDisplay(currentNum);
+        //trimming and pushing to display
+        this.trimToDisplay(currentNum);
 
         //for debugging - uncomment if necessary
-        // console.log(calc);
+        console.log(calc);
     },
 };
